@@ -11,7 +11,7 @@ const initialState = {
     },
     {
       name: 'abc',
-      id: 1,
+      id: 2,
       count: 10,
       total: 150
     }
@@ -20,6 +20,9 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+
+  console.log(action.type);
+  
   switch (action.type) {
     case 'FETCH_MENU_SUCCESS':
       return {

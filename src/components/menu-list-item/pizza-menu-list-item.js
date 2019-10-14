@@ -1,6 +1,6 @@
 import React from 'react';
 import "./pizza-menu-list-item.css";
-const PizzaMenuListItem = ({pizza, onAddedCard}) => {
+const PizzaMenuListItem = ({pizza, onAddedToCart}) => {
     const {pizza_name, cooking_time} = pizza;
     
 
@@ -15,7 +15,9 @@ const PizzaMenuListItem = ({pizza, onAddedCard}) => {
                     <h5 className="card-title">{pizza_name}</h5>
                     <p className="card-text">Waiting for pizza: {cooking_time} minutes</p>
                     <p className="card-text"><small className="text-muted">Ingridients: tomatoes,pepperoni,cheese.</small></p>
-                    <button className="btn btn-info add-to-card">Add to card</button>
+                    <button
+                    onClick={onAddedToCart} 
+                    className="btn btn-info add-to-card">Add to card</button>
                 </div>
                 </div>
             </div>

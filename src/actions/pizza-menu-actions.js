@@ -18,6 +18,13 @@ const menuFailure = (err) => {
     }
 }
 
+export const pizzaAddedToCart = (pizzaId) => {
+    return {
+        type:  'PIZZA_ADDED_TO_CART',
+        payload: pizzaId
+    }
+}
+
 const fetchMenu = (pizzastoreService, dispatch) => () => {
     dispatch(menuRequest());
     pizzastoreService.getPizzas()

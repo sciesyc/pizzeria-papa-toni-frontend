@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PizzaMenuListItem from '../menu-list-item';
-import {fetchMenu} from '../../actions/pizza-menu-actions'
+import {fetchMenu, pizzaAddedToCart} from '../../actions/pizza-menu-actions'
 import compose from '../../utils/compose';
 import withPizzastoreService from '../hoc/with-pizzastore-service';
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ class PizzaMenuListContainer extends Component {
     }
 
     render() {
-        const { pizzas, loading, errors} = this.props;
+        const { pizzas, loading, errors, onAddedToCart} = this.props;
 
         if (loading) {
         return <Spinner/>
@@ -27,18 +27,21 @@ class PizzaMenuListContainer extends Component {
             return <ErrorIndicator />
         }
         
-        return <PizzaMenuList pizzas={pizzas} />
+        return <PizzaMenuList pizzas={pizzas}  onAddedToCart={onAddedToCart}/>
     };
 };
 
-const PizzaMenuList = ({pizzas}) => {
+const PizzaMenuList = ({pizzas, onAddedToCart}) => {
     return(
         <ul >
             {
                 pizzas.map(pizza => {
                     return(
                         <li key={pizza.id}>
-                            <PizzaMenuListItem pizza={pizza} />
+                            <PizzaMenuListItem 
+                            pizza={pizza} 
+                            onAddedToCart={() => onAddedToCart(pizza.id)}
+                            />
                         </li>
                     )
                 })
@@ -54,7 +57,8 @@ const mapStateToProps = ({pizzas, loading, errors}) => {
 
 const mapDispatchToProps = (dispatch, { pizzastoreService }) => {
     return{
-        fetchMenu: fetchMenu(pizzastoreService, dispatch)
+        fetchMenu: fetchMenu(pizzastoreService, dispatch),
+        onAddedToCart: (id) => dispatch(pizzaAddedToCart(id))
     }     
 };
 
