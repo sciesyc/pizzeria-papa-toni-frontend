@@ -17,6 +17,7 @@ class PizzaMenuListContainer extends Component {
     }
 
     render() {
+        
         const { pizzas, loading, errors, onAddedToCart} = this.props;
 
         if (loading) {
@@ -51,7 +52,7 @@ const PizzaMenuList = ({pizzas, onAddedToCart}) => {
 }
 
 
-const mapStateToProps = ({pizzas, loading, errors}) => {
+const mapStateToProps = ({ pizzaList: { pizzas, loading, errors } }) => {
     return {pizzas, loading, errors};
 }
 
