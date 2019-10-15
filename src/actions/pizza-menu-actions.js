@@ -39,6 +39,13 @@ export const allPizzasRemovedFromCart = (pizzaId) => {
     };
 };
 
+const pizzasLoaded = (newPizzas) => {
+    return {
+      type: 'PIZZAS_LOADED',
+      payload: newPizzas
+    };
+};
+
 const fetchMenu = (pizzastoreService, dispatch) => () => {
     dispatch(menuRequest());
     pizzastoreService.getPizzas()
@@ -46,6 +53,8 @@ const fetchMenu = (pizzastoreService, dispatch) => () => {
     .catch(err => dispatch(menuFailure(err)));
 }
 
+
 export {
+    pizzasLoaded,
     fetchMenu
 }
