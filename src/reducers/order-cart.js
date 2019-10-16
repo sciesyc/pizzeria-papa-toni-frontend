@@ -1,5 +1,7 @@
+const updateTotalCookingTime = (pizza, orderTotal, quantity) => orderTotal + quantity * pizza.cooking_time;
+
 const updateOrder = (state, pizzaId, quantity) => {
-  const { pizzaList: {pizzas}, orderCart: {cartItems}} = state;
+  const { pizzaList: {pizzas}, orderCart: {cartItems,orderTotal}} = state;
 
   const pizza = pizzas.find(({id}) => id === pizzaId);
   const itemIndex = cartItems.findIndex(({id}) => id === pizzaId);
@@ -7,7 +9,7 @@ const updateOrder = (state, pizzaId, quantity) => {
 
   const newItem = updateCartItem(pizza, item, quantity);
   return {
-    orderTotal: 0,
+    orderTotal: updateTotalCookingTime(pizza, orderTotal, quantity),
     cartItems: updateCartItems(cartItems, newItem, itemIndex)
   };
 };
@@ -49,11 +51,15 @@ const updateCartItem = (pizza, item = {}, quantity) => {
   };
 };
 
+
+
+
+
 const updateOrderCart = (state, action) => {
     if (state === undefined) {
       return {
         cartItems: [],
-        orderTotal: 0
+        orderTotal: 0 
       }
     }
   

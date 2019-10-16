@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header';
 import { HomePage, CartPage, SignUpPage, SignInPage } from '../pages';
+import  HistoryList  from '../history-list';
 import './app.css';
 
 const App = () => {
@@ -30,6 +31,12 @@ const App = () => {
                     path="/signup"
                     component={SignUpPage}
                     exact /> 
+
+                    <Route 
+                    path="/history"
+                    component={HistoryList}
+                    exact/>
+
                 </Switch>   
             </main>
         </Fragment>

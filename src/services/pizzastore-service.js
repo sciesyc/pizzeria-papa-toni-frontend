@@ -26,4 +26,27 @@ export default class PizzastoreService {
         .then(res => res)
         .catch(err => err.response.status);
     } 
+
+    sentOrder = async (userName, isDone, totalCookingTime) => {
+        return await axios.post(`${this._urlCase}menu/add/`, {
+            "clientName": userName,
+            "isReady": isDone,
+            "cooking_time": totalCookingTime
+    })
+        .then(res => {
+            if (res.data.cooking_time === 0) {
+                return;
+            }
+            return res.data;
+        })
+        .catch(err => console.log(err))
+    }
+
+    getOrderHistory = async (userName) => {
+        return await axios.get(`${this._urlCase}history/${userName}/`)
+        .then(res=> {
+            return res.data
+        })
+        .catch(err => console.log(err));
+    }
 }

@@ -1,5 +1,9 @@
-import React from 'react';
+import React , {Component} from 'react';
 import {connect} from 'react-redux';
+import { compose } from "redux";
+import withPizzastoreService from "../hoc/with-pizzastore-service";
+import { fetchSentOrderData } from "../../actions/user-actions";
+
 
 import { pizzaAddedToCart, 
         pizzaRemovedFromCart, 
@@ -8,9 +12,12 @@ import { pizzaAddedToCart,
 import './order-cart-table.css';
 
 
-const OrderCartTable = ( {items, totalTime, onIncrease, onDecrease, onDelete} ) => {
-    const renderRow = (item, idx) => {
+class OrderCartTable extends Component {
+    
+
+    renderRow = (item, idx) => {
         const { id, title, count, total} = item;
+        const {onIncrease, onDecrease, onDelete} = this.props;
         return (
         <tr key = {id}>
             <td>{idx + 1}</td>
@@ -24,7 +31,7 @@ const OrderCartTable = ( {items, totalTime, onIncrease, onDecrease, onDelete} ) 
                 <i className="fa fa-trash-o" />
             </button>
             <button
-            onClick={() => onIncrease(id)}  
+            onClick={() => {console.log(this.props.orderTotal); onIncrease(id)}}  
             className="btn btn-outline-success btn-sm float-right">
                 <i className="fa fa-plus-circle" />
             </button>
@@ -38,41 +45,75 @@ const OrderCartTable = ( {items, totalTime, onIncrease, onDecrease, onDelete} ) 
         );
     };
 
-    return (
-        <div className="order-cart-table">
-            <h2>Your Order</h2>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Item</th>
-                        <th>Count</th>
-                        <th>Time</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map(renderRow)}
-                </tbody>
-            </table>
-            <div className="total">
-                Total time: {totalTime}
+    componentDidMount() {
+        console.log(this.props.userName);
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const {userName, orderTotal,  fetchSentOrder} = this.props;
+
+        if(orderTotal === 0) {
+            alert("Nothing to cook!")
+            return;
+        }
+        console.log(orderTotal);
+        fetchSentOrder(userName, "in process", orderTotal)
+        alert('order in progress');
+        setTimeout(()=> alert("Your order is done!"), orderTotal*1000);
+    }
+
+    render(){
+
+        const { items } = this.props;
+
+        return (
+            <div className="order-cart-table">
+                <h2>Your Order</h2>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Item</th>
+                            <th>Count</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map(this.renderRow)}
+                    </tbody>
+                </table>
+                <button
+                onClick={this.handleSubmit} 
+                >Sent order</button>
+                <div className="total">
+                    Total time: {this.props.orderTotal}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+    
 }
 
-const mapStateToProps = ( { orderCart: { cartItems, orderTotal } }) => {
+const mapStateToProps = ( { orderCart: { cartItems, orderTotal }, userData: {userName} }) => {
     return {
         items: cartItems,
-        total: orderTotal
+        userName,
+        orderTotal
     }
 }
 
-const mapDispatchToProps = {
-        onIncrease: pizzaAddedToCart,
-        onDecrease: pizzaRemovedFromCart,
-        onDelete: allPizzasRemovedFromCart
+const mapDispatchToProps = (dispatch, {pizzastoreService}) => {
+    return {
+        fetchSentOrder: fetchSentOrderData(pizzastoreService, dispatch),
+        onIncrease: (id)=> dispatch(pizzaAddedToCart(id)),
+        onDecrease: (id) => dispatch(pizzaRemovedFromCart(id)),
+        onDelete: (id) => dispatch(allPizzasRemovedFromCart(id))
+    }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderCartTable);
+export default compose(
+    withPizzastoreService(),
+    connect(mapStateToProps,mapDispatchToProps)
+)(OrderCartTable);

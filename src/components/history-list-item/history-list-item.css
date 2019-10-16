@@ -1,0 +1,17 @@
+
+.list-group-ul {
+    width: 600px; 
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 25px;
+    border: black solid 1px;
+}
+
+.list-group-item-li {
+    width: 100%; 
+    flex-basis: 200px;
+    margin-right: 25px; 
+}
+
+
+

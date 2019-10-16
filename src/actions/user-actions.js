@@ -9,6 +9,25 @@ const signInSuccess = (data) => ({
   payload: data
 });
 
+const sentOrderSuccess = (...args) => ({
+  type: "SENT_ORDER_SUCCESS",
+  payload: args
+})
+
+
+const getHistory = (orderHistory) => ({
+  type: "GET_HISTORY",
+  payload: orderHistory
+})
+
+const fetchSentOrderData = (pizzastoreService, dispatch) => (userName, isDone, totalCookingTime) => {
+  pizzastoreService.sentOrder(userName, isDone, totalCookingTime)
+  .then(res => {
+    dispatch(sentOrderSuccess(res))
+  })
+  .catch(err => console.log(err))
+}
+
 const fetchSignUpData = ( pizzastoreService, dispatch ) => (userName, password) => {
   pizzastoreService.signUp(userName, password)
   .then(res => {
@@ -28,7 +47,6 @@ const fetchSignInData = ( pizzastoreService, dispatch ) => (userName, password) 
     if (res === 404) {
       alert('ez');
       return;
-      console.log("User name doesn't exist");
     } 
   alert('abc');
     dispatch(signInSuccess(res.data[0].clientName, res.data[0].password, res.data[0].token));
@@ -37,7 +55,15 @@ const fetchSignInData = ( pizzastoreService, dispatch ) => (userName, password) 
   .catch( err => console.log(err));
 } 
 
+const fetchOrderHistory = (pizzastoreService, dispatch) => (userName) => {
+  pizzastoreService.getOrderHistory(userName)
+  .then( res=> dispatch(getHistory(res)))
+  .catch(err => console.log(err));
+}
+
 export {
   fetchSignUpData,
-  fetchSignInData
+  fetchSignInData,
+  fetchSentOrderData,
+  fetchOrderHistory
 };
