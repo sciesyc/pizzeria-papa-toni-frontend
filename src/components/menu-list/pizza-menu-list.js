@@ -21,7 +21,7 @@ class PizzaMenuListContainer extends Component {
         const { pizzas, loading, errors, onAddedToCart} = this.props;
 
         if (loading) {
-        return <Spinner/>
+            return <Spinner/>
          }
 
         if (errors.length !== 0) {

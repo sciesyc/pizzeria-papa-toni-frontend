@@ -8,9 +8,11 @@ import './app.css';
 const App = () => {
     return (
         <Fragment>
-            <AppHeader/>
+            <AppHeader />
+            {/*add to the component numItems={items} itemsTime = {totalTime}*/}
             <main role="main" className="container">
                 <Switch>
+
                     <Route 
                     path="/"
                     component={HomePage}
@@ -21,8 +23,7 @@ const App = () => {
                     component={CartPage}
                     exact />
 
-
-                    <Route 
+                    <Route
                     path="/signin"
                     component={SignInPage}
                     exact />
@@ -36,7 +37,6 @@ const App = () => {
                     path="/history"
                     component={HistoryList}
                     exact/>
-
                 </Switch>   
             </main>
         </Fragment>

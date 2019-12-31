@@ -51,10 +51,6 @@ const updateCartItem = (pizza, item = {}, quantity) => {
   };
 };
 
-
-
-
-
 const updateOrderCart = (state, action) => {
     if (state === undefined) {
       return {
