@@ -15,9 +15,8 @@ class AppHeader extends Component {
     }
 
  render() {
+     const { orderTotal, items, count } = this.props;
 
-
-   const { orderTotal, items, count } = this.props;
      return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +57,8 @@ class AppHeader extends Component {
           <Link to="/cart">
           <div>
             <i className="cart-icon fa fa-shopping-cart" />
-              Items {items.length }({orderTotal})
+              {items.length > 0 && <span> Item: {items.length}</span>}
+              {orderTotal > 0 && <span>({orderTotal})</span>}
           </div>
           </Link>
         </div>

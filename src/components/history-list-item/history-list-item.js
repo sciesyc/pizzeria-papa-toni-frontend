@@ -1,11 +1,5 @@
-import React, {Component} from 'react';
-import PizzaMenuListItem from '../menu-list-item';
-import {fetchMenu, pizzaAddedToCart} from '../../actions/actions-pizza-menu'
-import compose from '../../utils/compose';
-import withPizzastoreService from '../hoc/with-pizzastore-service';
-import { connect } from 'react-redux';
-import Spinner from '../spinner';
-import ErrorIndicator from '../error-indicator';
+import React from 'react';
+
 import "./history-list-item.css";
 
 
