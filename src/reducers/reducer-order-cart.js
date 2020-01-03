@@ -1,33 +1,19 @@
-const updateTotalCookingTime = (pizza, orderTotal, quantity) => orderTotal + quantity * pizza.cooking_time;
-
-const updateOrder = (state, pizzaId, quantity) => {
-  const { pizzaList: {pizzas}, orderCart: {cartItems,orderTotal}} = state;
-
-  const pizza = pizzas.find(({id}) => id === pizzaId);
-  const itemIndex = cartItems.findIndex(({id}) => id === pizzaId);
-  const item = cartItems[itemIndex];
-
-  const newItem = updateCartItem(pizza, item, quantity);
-  return {
-    orderTotal: updateTotalCookingTime(pizza, orderTotal, quantity),
-    cartItems: updateCartItems(cartItems, newItem, itemIndex)
-  };
-};
 
 const updateCartItems = (cartItems, item, idx) => {
-  if(item.count === 0) {
+    if (idx === -1) {
+        return [
+            ...cartItems,
+            item
+        ];
+    }
+
+  if (item.count === 0) {
     return [
       ...cartItems.slice(0, idx),
       ...cartItems.slice(idx + 1),
     ];
   }
-  
-  if (idx === -1) {
-    return [
-      ...cartItems,
-      item
-    ];
-  }
+
   return [
     ...cartItems.slice(0, idx),
     item,
@@ -37,11 +23,11 @@ const updateCartItems = (cartItems, item, idx) => {
 
 const updateCartItem = (pizza, item = {}, quantity) => {
 
-  const { id = pizza.id, 
-          count = 0, 
-          title = pizza.pizza_name, 
-          total = 0} = item;
-          
+  const {
+      id = pizza.id,
+      count = 0,
+      title = pizza.pizza_name,
+      total = 0 } = item;
 
   return {
     id,
@@ -49,6 +35,22 @@ const updateCartItem = (pizza, item = {}, quantity) => {
     count: count + quantity,
     total: total + quantity*pizza.cooking_time
   };
+};
+
+const updateTotalCookingTime = (pizza, orderTotal, quantity) => orderTotal + quantity * pizza.cooking_time;
+
+const updateOrder = (state, pizzaId, quantity) => {
+    const { pizzaList: {pizzas}, orderCart: {cartItems,orderTotal}} = state;
+
+    const pizza = pizzas.find(({id}) => id === pizzaId);
+    const itemIndex = cartItems.findIndex(({id}) => id === pizzaId);
+    const item = cartItems[itemIndex];
+
+    const newItem = updateCartItem(pizza, item, quantity);
+    return {
+        orderTotal: updateTotalCookingTime(pizza, orderTotal, quantity),
+        cartItems: updateCartItems(cartItems, newItem, itemIndex)
+    };
 };
 
 const updateOrderCart = (state, action) => {

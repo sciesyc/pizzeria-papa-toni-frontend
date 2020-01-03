@@ -1,7 +1,8 @@
 import React from 'react';
+import OrderCartTable from '../order-cart-table.js';
 
 const CartPage = () => {
-    return <div>CartPage</div>
+    return <OrderCartTable/>
 }
 
 export default CartPage;

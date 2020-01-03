@@ -2,18 +2,15 @@ import React , {Component} from 'react';
 import {connect} from 'react-redux';
 import { compose } from "redux";
 import withPizzastoreService from "../hoc/with-pizzastore-service";
-import { fetchSentOrderData } from "../../actions/user-actions";
-
-
+import { fetchSentOrderData } from "../../actions/actions-user";
 import { pizzaAddedToCart, 
         pizzaRemovedFromCart, 
-        allPizzasRemovedFromCart } from '../../actions/pizza-menu-actions'; 
+        allPizzasRemovedFromCart } from '../../actions/actions-pizza-menu';
 
 import './order-cart-table.css';
 
 
 class OrderCartTable extends Component {
-    
 
     renderRow = (item, idx) => {
         const { id, title, count, total} = item;
@@ -31,7 +28,7 @@ class OrderCartTable extends Component {
                 <i className="fa fa-trash-o" />
             </button>
             <button
-            onClick={() => {console.log(this.props.orderTotal); onIncrease(id)}}  
+            onClick={() => {onIncrease(id)}}
             className="btn btn-outline-success btn-sm float-right">
                 <i className="fa fa-plus-circle" />
             </button>
@@ -64,9 +61,7 @@ class OrderCartTable extends Component {
     }
 
     render(){
-
-        const { items } = this.props;
-
+        const { items, orderTotal } = this.props;
         return (
             <div className="order-cart-table">
                 <h2>Your Order</h2>
@@ -88,12 +83,11 @@ class OrderCartTable extends Component {
                 onClick={this.handleSubmit} 
                 >Sent order</button>
                 <div className="total">
-                    Total time: {this.props.orderTotal}
+                    Total time: {orderTotal}
                 </div>
             </div>
         )
     }
-    
 }
 
 const mapStateToProps = ( { orderCart: { cartItems, orderTotal }, userData: {userName} }) => {

@@ -1,6 +1,6 @@
-import updatePizzaList from './pizza-list';
-import updateOrderCart from './order-cart';
-import updateUserData from './users-data';
+import updatePizzaList from './reducer-pizza-list';
+import updateOrderCart from './reducer-order-cart';
+import updateUserData from './reducer-users-data';
 
 
 const reducer = (state, action) => {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PizzaMenuListItem from '../menu-list-item';
-import {fetchMenu, pizzaAddedToCart} from '../../actions/pizza-menu-actions'
+import {fetchMenu, pizzaAddedToCart} from '../../actions/actions-pizza-menu'
 import compose from '../../utils/compose';
 import withPizzastoreService from '../hoc/with-pizzastore-service';
 import { connect } from 'react-redux';
@@ -9,6 +9,24 @@ import ErrorIndicator from '../error-indicator';
 
 import './pizza-menu-list.css';
 
+const PizzaMenuList = ({pizzas, onAddedToCart}) => {
+    return(
+        <ul >
+            {
+                pizzas.map(pizza => {
+                    return(
+                        <li key={pizza.id}>
+                            <PizzaMenuListItem
+                                pizza={pizza}
+                                onAddedToCart={() => onAddedToCart(pizza.id)}
+                            />
+                        </li>
+                    )
+                })
+            }
+        </ul>
+    )
+}
 
 class PizzaMenuListContainer extends Component {
     
@@ -31,26 +49,6 @@ class PizzaMenuListContainer extends Component {
         return <PizzaMenuList pizzas={pizzas}  onAddedToCart={onAddedToCart}/>
     };
 };
-
-const PizzaMenuList = ({pizzas, onAddedToCart}) => {
-    return(
-        <ul >
-            {
-                pizzas.map(pizza => {
-                    return(
-                        <li key={pizza.id}>
-                            <PizzaMenuListItem 
-                            pizza={pizza} 
-                            onAddedToCart={() => onAddedToCart(pizza.id)}
-                            />
-                        </li>
-                    )
-                })
-            }
-        </ul>
-    )
-}
-
 
 const mapStateToProps = ({ pizzaList: { pizzas, loading, errors } }) => {
     return {pizzas, loading, errors};

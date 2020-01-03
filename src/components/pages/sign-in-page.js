@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Dialog from "react-bootstrap-dialog";
 import { compose } from "redux";
 import withPizzastoreService from "../hoc/with-pizzastore-service";
-import { fetchSignInData } from "../../actions/user-actions";
+import { fetchSignInData } from "../../actions/actions-user";
 import {Redirect} from "react-router";
 
 class SignInPage extends Component {

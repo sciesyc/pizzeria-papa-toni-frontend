@@ -2,12 +2,22 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './app-header.css';
+import {compose} from "redux";
+import withPizzastoreService from "../hoc/with-pizzastore-service";
 
 class AppHeader extends Component {
 
+    itemsCounter = (item, idx) => {
+        let {count} = item;
+        let sum = 0;
+        sum += count;
+        return sum;
+    }
 
  render() {
-   const { totalTime, items } = this.props;
+
+
+   const { orderTotal, items, count } = this.props;
      return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +58,7 @@ class AppHeader extends Component {
           <Link to="/cart">
           <div>
             <i className="cart-icon fa fa-shopping-cart" />
-            {items} items ({totalTime})
+              Items {items.length }({orderTotal})
           </div>
           </Link>
         </div>
@@ -57,11 +67,11 @@ class AppHeader extends Component {
   }
 }
 
-const mapStateToProps = ({totalTime, items}) => {
-  return {
-    totalTime,
-    items
-  }
-}
+const mapStateToProps = ({ orderCart: { cartItems, orderTotal }}) => {
+    return {
+        orderTotal,
+        items:cartItems
+    }
+};
 
 export default connect(mapStateToProps)(AppHeader);

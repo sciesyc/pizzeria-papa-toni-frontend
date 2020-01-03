@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import PizzaMenuListItem from '../menu-list-item';
-import {fetchMenu, pizzaAddedToCart} from '../../actions/pizza-menu-actions'
+import {fetchMenu, pizzaAddedToCart} from '../../actions/actions-pizza-menu'
 import compose from '../../utils/compose';
 import withPizzastoreService from '../hoc/with-pizzastore-service';
 import { connect } from 'react-redux';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 import HistoryListItem from "../history-list-item";
-import {fetchOrderHistory} from '../../actions/user-actions';
+import {fetchOrderHistory} from '../../actions/actions-user';
 
 
 

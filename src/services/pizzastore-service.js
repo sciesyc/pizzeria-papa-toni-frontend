@@ -7,7 +7,7 @@ export default class PizzastoreService {
     getPizzas = async () => {
         return await axios.get(`${this._urlCase}menu/`)
         .then(res => res.data);
-    }
+    };
 
     signUp = async (userName, password) => {
         return await axios.post(`${this._urlCase}clients/add/`, {
@@ -16,7 +16,7 @@ export default class PizzastoreService {
         })
         .then(res => res.data)
         .catch(err => console.log("Error: ", err));
-    } 
+    };
 
     signIn = async (userName, password) => {
         return await axios.post(`${this._urlCase}authentication/`, {
@@ -25,7 +25,7 @@ export default class PizzastoreService {
         })
         .then(res => res)
         .catch(err => err.response.status);
-    } 
+    };
 
     sentOrder = async (userName, isDone, totalCookingTime) => {
         return await axios.post(`${this._urlCase}menu/add/`, {
@@ -40,7 +40,7 @@ export default class PizzastoreService {
             return res.data;
         })
         .catch(err => console.log(err))
-    }
+    };
 
     getOrderHistory = async (userName) => {
         return await axios.get(`${this._urlCase}history/${userName}/`)
