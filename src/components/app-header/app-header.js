@@ -2,8 +2,6 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './app-header.css';
-import {compose} from "redux";
-import withPizzastoreService from "../hoc/with-pizzastore-service";
 
 class AppHeader extends Component {
 
@@ -15,7 +13,7 @@ class AppHeader extends Component {
     }
 
  render() {
-     const { orderTotal, items, count } = this.props;
+     const { orderTotal, items} = this.props;
 
      return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,7 +56,7 @@ class AppHeader extends Component {
           <div>
             <i className="cart-icon fa fa-shopping-cart" />
               {items.length > 0 && <span> Item: {items.length}</span>}
-              {orderTotal > 0 && <span>({orderTotal})</span>}
+              {orderTotal > 0 && <span> ({orderTotal})</span>}
           </div>
           </Link>
         </div>
