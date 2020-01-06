@@ -1,16 +1,16 @@
-import axios from 'axios';
+import http from './httpService';
+import config from '../config';
+
 
 export default class PizzastoreService {
 
-    _urlCase = 'http://localhost:3001/';
-
     getPizzas = async () => {
-        return await axios.get(`${this._urlCase}menu/`)
+        return await http.get(`${config.urlCase}menu/`)
         .then(res => res.data);
     };
 
     signUp = async (userName, password) => {
-        return await axios.post(`${this._urlCase}clients/add/`, {
+        return await http.post(`${config.urlCase}clients/add/`, {
             "clientName": userName,
             "password": password
         })
@@ -19,16 +19,16 @@ export default class PizzastoreService {
     };
 
     signIn = async (userName, password) => {
-        return await axios.post(`${this._urlCase}authentication/`, {
+        return await http.post(`${config.urlCase}authentication/`, {
             "clientName": userName,
             "password": password
         })
-        .then(res => res)
+        .then(res =>res)
         .catch(err => err.response.status);
     };
 
     sentOrder = async (userName, isDone, totalCookingTime) => {
-        return await axios.post(`${this._urlCase}menu/add/`, {
+        return await http.post(`${config.urlCase}menu/add/`, {
             "clientName": userName,
             "isReady": isDone,
             "cooking_time": totalCookingTime
@@ -43,10 +43,10 @@ export default class PizzastoreService {
     };
 
     getOrderHistory = async (userName) => {
-        return await axios.get(`${this._urlCase}history/${userName}/`)
+        return await http.get(`${config.urlCase}history/${userName}/`)
         .then(res=> {
             return res.data
         })
         .catch(err => console.log(err));
     }
-}
+};

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import PizzaMenuListItem from '../menu-list-item';
-import {fetchMenu, pizzaAddedToCart} from '../../actions/actions-pizza-menu'
+
 import compose from '../../utils/compose';
 import withPizzastoreService from '../hoc/with-pizzastore-service';
 import { connect } from 'react-redux';
@@ -15,7 +14,7 @@ class HistoryList extends Component {
 
     componentDidMount() { 
         const {fetchOrderHistory, userName} = this.props;
-        fetchOrderHistory('sad');      // current userName
+        // fetchOrderHistory('sad');      // current userName
         console.log(this.props.currentOrderHistory);
     }
 

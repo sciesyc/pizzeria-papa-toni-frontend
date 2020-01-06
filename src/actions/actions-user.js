@@ -45,15 +45,15 @@ const fetchSignInData = ( pizzastoreService, dispatch ) => (userName, password) 
   .then(res => {
     console.log(res);
     if (res === 404) {
-      alert('ez');
+      alert('Something goes wrong!!!');
       return;
     } 
-  alert('abc');
+    alert(`You're successfully signed in ${userName}`);
     dispatch(signInSuccess(res.data[0].clientName, res.data[0].password, res.data[0].token));
 
   })
   .catch( err => console.log(err));
-} 
+};
 
 const fetchOrderHistory = (pizzastoreService, dispatch) => (userName) => {
   pizzastoreService.getOrderHistory(userName)
