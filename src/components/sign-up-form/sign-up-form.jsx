@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import Joi from "joi";
 import { compose } from "redux";
 import withPizzastoreService from "../hoc/with-pizzastore-service";
-import { fetchSignInData } from "../../actions/actions-user";
+import {fetchSignUpData} from "../../actions/actions-user";
 import {Redirect} from "react-router";
 import Form from "../common/form";
 
-class SignInForm extends Form {
+class SignUpForm extends Form {
 
   state = {
     data: { userName: "", password: ""},
@@ -25,41 +25,42 @@ class SignInForm extends Form {
   };
 
   doFormSubmit = () => {
-    this.props.fetchSignInData(this.state.data);
+    this.props.fetchSignUpData(this.state.data);
   };
 
   render () {
-    let { data, errors} = this.state;
 
-    // if (localStorage.getItem('token')) {
-    //   return <Redirect to='/'/>;
-    // }
+    if (this.props.userName) {
+      return <Redirect
+        to="/signin"/>
+    }
 
     return (
       <form>
-        <h3>Sign In</h3>
+        <h3>Sign Up</h3>
         {this.renderInput("userName", "Username")}
         {this.renderInput("password", "Password", "password")}
-        {this.renderButton("Sign in")}
+        {this.renderButton("Sign up")}
       </form>
     )
   }
 }
 
-const mapStateToProps = ( {userName, password} ) => {
+
+const mapStateToProps = ( {userName} ) => {
   return {
-    userName,
-    password
+    userName
   }
 };
 
 const mapDispatchToProps = (dispatch, {pizzastoreService}) => {
   return {
-    fetchSignInData: fetchSignInData(pizzastoreService, dispatch)
+    fetchSignUpData: fetchSignUpData(pizzastoreService, dispatch)
   }
-};
+}
+
 
 export default compose(
   withPizzastoreService(),
   connect(mapStateToProps,mapDispatchToProps)
-)(SignInForm);
+)(SignUpForm);

@@ -15,11 +15,11 @@ const updateUserData = (state, action) => {
             }
         
         case "SIGN_IN_SUCCESS":
-            localStorage.setItem('username', action.payload[0]);
-            localStorage.setItem('token', action.payload[2]);
+            localStorage.setItem('username', action.payload);
+            // localStorage.setItem('token', action.payload[2]);
             return {
                 isLoggedIn: true,
-                userName: action.payload[0]    
+                userName: action.payload
             } 
 
         case "GET_HISTORY":     

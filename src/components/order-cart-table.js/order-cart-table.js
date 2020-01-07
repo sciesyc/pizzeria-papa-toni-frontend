@@ -93,7 +93,7 @@ class OrderCartTable extends Component {
 const mapStateToProps = ( { orderCart: { cartItems, orderTotal }, userData: {userName} }) => {
     return {
         items: cartItems,
-        userName,
+        userName: userName,
         orderTotal
     }
 }

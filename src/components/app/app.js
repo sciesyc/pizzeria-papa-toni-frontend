@@ -3,13 +3,16 @@ import { Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header';
 import { HomePage, CartPage, SignUpPage, SignInPage } from '../pages';
 import  HistoryList  from '../history-list';
+import {ToastContainer} from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css"
 import './app.css';
 
 const App = () => {
     return (
         <Fragment>
+          <ToastContainer />
             <AppHeader />
-            {/*add to the component numItems={items} itemsTime = {totalTime}*/}
             <main role="main" className="container">
                 <Switch>
 

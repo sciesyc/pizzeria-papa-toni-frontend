@@ -14,7 +14,7 @@ class HistoryList extends Component {
 
     componentDidMount() { 
         const {fetchOrderHistory, userName} = this.props;
-        // fetchOrderHistory('sad');      // current userName
+        fetchOrderHistory("sad");      // current userName
         console.log(this.props.currentOrderHistory);
     }
 

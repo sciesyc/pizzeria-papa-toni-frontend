@@ -9,19 +9,23 @@ export default class PizzastoreService {
         .then(res => res.data);
     };
 
-    signUp = async (userName, password) => {
+    signUp = async (user) => {
         return await http.post(`${config.urlCase}clients/add/`, {
-            "clientName": userName,
-            "password": password
+            "clientName": user.userName,
+            "password": user.password
         })
-        .then(res => res.data)
+        .then(res =>{    if (res.status === 409) {
+            alert('User existing!!!');
+        }
+           return res.data;
+        })
         .catch(err => console.log("Error: ", err));
     };
 
-    signIn = async (userName, password) => {
+    signIn = async (user) => {
         return await http.post(`${config.urlCase}authentication/`, {
-            "clientName": userName,
-            "password": password
+            "clientName": user.userName,
+            "password": user.password
         })
         .then(res =>res)
         .catch(err => err.response.status);
